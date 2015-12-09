@@ -1,0 +1,1 @@
+Just quickly mucking around with an example implementation of Maybe in C#. See Maybe.cs. Some example of usage in Program.cs
