@@ -9,7 +9,7 @@ namespace ConsoleApplication2
         static void Main(string[] args)
         {
             IMaybe<MyUser> maybeUser = Maybe.Just(new MyUser());
-            IMaybe<IEnumerable<UserGroup>> maybeGroups = maybeUser.Safe(user => user.Groups);
+            IMaybe<IEnumerable<UserGroup>> maybeGroups = maybeUser.Select(user => user.Groups);
 
             // if you need to check if it has value, use this extension method, but probably don't do this often.
             if (maybeGroups.HasValue())
@@ -22,7 +22,7 @@ namespace ConsoleApplication2
             }
 
             // null coalescing equivalent
-            IEnumerable<UserGroup> groupsForDisplay = maybeGroups.Coalesce(Enumerable.Empty<UserGroup>());
+            IEnumerable<UserGroup> groupsForDisplay = maybeGroups.Or(Enumerable.Empty<UserGroup>());
             foreach (var group in groupsForDisplay)
             {
                 Console.WriteLine(group);
