@@ -17,7 +17,7 @@ namespace ConsoleApplication2
         public static IMaybe<T> Nothing<T>()
         {
             return new NothingImpl<T>();
-        } 
+        }
 
         private class JustImpl<T> : IMaybe<T>
         {
@@ -42,7 +42,7 @@ namespace ConsoleApplication2
             }
         }
         
-        public static IMaybe<TReturn> Safe<T, TReturn>(this IMaybe<T> maybe, Func<T, TReturn> selector)
+        public static IMaybe<TReturn> Select<T, TReturn>(this IMaybe<T> maybe, Func<T, TReturn> selector)
         {
             return maybe.Bind(val => Just(selector(val)), Nothing<TReturn>);
         }
@@ -74,7 +74,7 @@ namespace ConsoleApplication2
             return maybe.Bind(val => true, () => false);
         }
 
-        public static T Coalesce<T>(this IMaybe<T> maybe, T nullFallback)
+        public static T Or<T>(this IMaybe<T> maybe, T nullFallback)
         {
             return maybe.Bind(val => val, () => nullFallback);
         }
